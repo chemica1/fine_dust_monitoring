@@ -33,10 +33,7 @@ class WindowClass(QMainWindow, form_class):
                 if not c == 124:  # 아스키코드 |
                     line.append(chr(c))
                 if c == 124:
-                    # 데이터 처리 함수로 호출
-                    tmp = self.parsing_data(line)
-                    print(tmp)
-
+                    tmp = self.parsing_data(line) # 데이터 처리 함수로 호출
                     if 'a' in tmp:
                         tmp = tmp.lstrip()
                         tmp = tmp.replace('a', '')
@@ -59,9 +56,7 @@ class WindowClass(QMainWindow, form_class):
                         requests.get(URL)
                     del line[:]
 
-    def parsing_data(self, data):
-        # 리스트 구조로 들어 왔기 때문에
-        # 작업하기 편하게 스트링으로 합침
+    def parsing_data(self, data): # 리스트 구조로 들어 왔기 때문에 작업하기 편하게 스트링으로 합침
         tmp = ''.join(data)
         return tmp
 

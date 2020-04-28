@@ -61,7 +61,7 @@ void loop()
    Serial.println("a|");
  }
 
- delay(822);
+ delay(846);
 
  sensors_event_t event;
  dht.temperature().getEvent(&event);
@@ -100,6 +100,7 @@ void loop()
     flag2 = 0;
   }
 }
+
 
 float get_voltage(float value)
 {
@@ -163,12 +164,3 @@ int deleteq()
       return queue[front];
   }
 }
-
-// Serial.print("value = ");
-// Serial.println(vo_value);
-// Serial.print("Voltage = ");
-// Serial.print(sensor_voltage);
-// Serial.println(" [V]");
-// Serial.print("Dust Density = ");
-// Serial.print(dust_density);
-// Serial.println(" [ug/m^3]");
