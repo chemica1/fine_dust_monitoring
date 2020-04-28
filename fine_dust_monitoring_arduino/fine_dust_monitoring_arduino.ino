@@ -1,36 +1,44 @@
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <DHT_U.h>
 
-// 공기청정기 위 등에서 먼지를 가라앉힌 후 voltage값 개별적으로 측정 필요
-// 4/1 0.65V로 관측, 3M 측정기와 대조
-#define no_dust 0.54
-// 60초 이동평균
-#define MAX 60
+#define no_dust 0.54 // 공기청정기 위 등에서 먼지를 가라앉힌 후 voltage값 개별적으로 측정 필요. 4/1 0.65V로 관측, 3M 측정기와 대조
+#define MAX 60 // 60초 이동평균
+
+#define DHTTYPE DHT22 // Uncomment the type of sensor in use:
+#define DHTPIN 2 //온습도센서 핀
+int dustout=A0; //미세먼지 센서 핀
+int v_led=7; //미세먼지 센서 led 핀
+
+DHT_Unified dht(DHTPIN, DHTTYPE);
 
 //이동평균을 위한 원형큐 변수 선언
 int front=0;
 int rear=0;
 float queue[MAX];
 
-//아두이노-센서간에 핀 설정
-int dustout=A0;
-int v_led=7;
+float vo_value=0; // 센서로 읽은 값 변수 선언
+float sensor_voltage=0; // 센서로 읽은 값을 전압으로 측정 변수
+float dust_density=0; // 실제 미세 먼지 밀도 변수
+float moving_average=0; // 미세 먼지 밀도 이동평균값 변수
 
-// 센서로 읽은 값 변수 선언
-float vo_value=0;
+uint32_t delayMS;
 
-// 센서로 읽은 값을 전압으로 측정 변수
-float sensor_voltage=0;
-
-// 실제 미세 먼지 밀도 변수
-float dust_density=0;
-
-// 미세 먼지 밀도 이동평균값 변수
-float moving_average=0;
+int flag = 0;
+int flag2 = 1;
 
 
 void setup()
 {
  Serial.begin(9600); // 통신 속도 9600bps로 시리얼 통신 시작
  pinMode(v_led,OUTPUT); // 적외선 led 출력으로 설정
+ 
+ dht.begin();
+ sensor_t sensor;
+ dht.temperature().getSensor(&sensor);
+ dht.humidity().getSensor(&sensor);
+ 
+ delayMS = sensor.min_delay / 1000;
 }
 
 void loop()
@@ -46,12 +54,51 @@ void loop()
  sensor_voltage=get_voltage(vo_value);
  dust_density=get_dust_density(sensor_voltage);
  moving_average=get_moving_average(dust_density);
- 
- Serial.print("Dust Density = ");
- Serial.print(moving_average);
- Serial.println(" [ug/m^3]");
+ if(flag2==1)
+ {
+   Serial.print(moving_average);
+   Serial.flush();
+   Serial.println("a|");
+ }
 
- delay(1000);
+ delay(822);
+
+ sensors_event_t event;
+ dht.temperature().getEvent(&event);
+  if (isnan(event.temperature)) {
+    Serial.println("Error reading temperature!");
+  }
+  else {
+    if(flag2==1)
+    {
+      Serial.print(event.temperature);
+      Serial.flush();
+      Serial.println("b|");
+    }
+  }
+  // Get humidity event and print its value.
+  dht.humidity().getEvent(&event);
+  if (isnan(event.relative_humidity)) {
+    Serial.println("Error reading humidity!");
+  }
+  else {
+    if(flag2 == 1)
+    {
+      Serial.print(event.relative_humidity);
+      Serial.flush();
+      Serial.println("c|");
+    }
+  }
+
+  if(flag > MAX)
+  {
+    flag2 = 1;
+    flag = 0;
+  }else
+  {
+    flag++;
+    flag2 = 0;
+  }
 }
 
 float get_voltage(float value)
