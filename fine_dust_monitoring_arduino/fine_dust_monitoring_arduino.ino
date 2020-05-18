@@ -61,8 +61,6 @@ void loop()
    Serial.println("a|");
  }
 
- delay(846);
-
  sensors_event_t event;
  dht.temperature().getEvent(&event);
   if (isnan(event.temperature)) {
@@ -89,6 +87,8 @@ void loop()
       Serial.println("c|");
     }
   }
+  
+  delay(852);
 
   if(flag > MAX)
   {
