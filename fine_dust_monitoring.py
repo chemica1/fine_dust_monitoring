@@ -44,16 +44,16 @@ class barcode:
                         tmp = tmp.replace('-', '')
                         tmp = tmp[:(len(tmp))]
                         humidity = tmp
-                        print(f'----{dust_1p0} {dust_2p5} {dust_10p0} {temperature} {humidity}----')
 
                         now = time.localtime()
-                        print(now.tm_sec)
+                        print(f'{now.tm_year}/{now.tm_mon}/{now.tm_mday} {now.tm_hour}:{now.tm_min}:{now.tm_sec}  ->  pm1.0 : {dust_1p0}   pm2.5 : {dust_2p5}   pm10.0 : {dust_10p0}   {temperature}°C   {humidity}%')
+
                         if now.tm_sec < 2 or now.tm_sec > 58 :
                             try:
                                 URL = f'http://175.118.126.63/dnsm_dust/api.cfm?temperature={temperature}&humidity={humidity}&dust1={dust_1p0}&dust2={dust_2p5}&dust3={dust_10p0}&idx_location={self.location}'
                                 requests.get(URL)
                                 print("데이터 전송 완료")
-                                time.sleep(10)
+                                time.sleep(7)
                             except:
                                 print("인터넷 연결 / 서버 확인 필요")
 
