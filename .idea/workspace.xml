@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7ee2524-d665-47c3-b6ef-1938ac762143" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/fine_dust_monitoring.py" beforeDir="false" afterPath="$PROJECT_DIR$/fine_dust_monitoring.py" afterDir="false" />
-    </list>
+    <list default="true" id="e7ee2524-d665-47c3-b6ef-1938ac762143" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fine_dust_monitoring.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="54" column="50" lean-forward="true" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="50" />
+            <state relative-caret-position="170">
+              <caret line="39" column="41" lean-forward="true" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -271,8 +269,8 @@
     <entry file="file://$PROJECT_DIR$/MainUI.py" />
     <entry file="file://$PROJECT_DIR$/fine_dust_monitoring.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="54" column="50" lean-forward="true" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="50" />
+        <state relative-caret-position="170">
+          <caret line="39" column="41" lean-forward="true" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
